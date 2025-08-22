@@ -24,17 +24,17 @@ export const PrizeDisplay = ({ prize, email, onRetry }: PrizeDisplayProps) => {
       <div className="bg-card rounded-3xl p-8 lg:p-12 shadow-wheel border-2 border-primary/20 max-w-md mx-auto relative overflow-hidden">
         {/* Celebration Background */}
         <div className="absolute inset-0 bg-gradient-primary opacity-5"></div>
-        
+
         <div className="relative z-10">
           <div className="text-center mb-8">
             <div className="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
               <Trophy className="w-12 h-12 text-primary-foreground" />
             </div>
-            
+
             <h2 className="text-4xl font-bold text-foreground mb-2">
               🎉 Congratulations! 🎉
             </h2>
-            
+
             <p className="text-muted-foreground text-lg mb-6">
               You've won an amazing prize!
             </p>
@@ -51,10 +51,10 @@ export const PrizeDisplay = ({ prize, email, onRetry }: PrizeDisplayProps) => {
           </div>
 
           {/* Email Confirmation */}
-          <div className="flex items-center justify-center mb-8 text-muted-foreground">
+          {/* <div className="flex items-center justify-center mb-8 text-muted-foreground">
             <Mail className="w-4 h-4 mr-2" />
             <span className="text-sm">Prize details sent to: {email}</span>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="space-y-4">
@@ -65,7 +65,7 @@ export const PrizeDisplay = ({ prize, email, onRetry }: PrizeDisplayProps) => {
               <Download className="w-5 h-5 mr-2" />
               Claim Your Prize
             </Button>
-            
+
             <Button
               onClick={handleRetry}
               variant="outline"
@@ -79,8 +79,18 @@ export const PrizeDisplay = ({ prize, email, onRetry }: PrizeDisplayProps) => {
 
         {/* Decorative elements */}
         <div className="absolute top-4 right-4 text-2xl animate-bounce">✨</div>
-        <div className="absolute bottom-4 left-4 text-2xl animate-bounce" style={{ animationDelay: '0.5s' }}>🎊</div>
-        <div className="absolute top-1/2 right-2 text-xl animate-bounce" style={{ animationDelay: '1s' }}>🎁</div>
+        <div
+          className="absolute bottom-4 left-4 text-2xl animate-bounce"
+          style={{ animationDelay: "0.5s" }}
+        >
+          🎊
+        </div>
+        <div
+          className="absolute top-1/2 right-2 text-xl animate-bounce"
+          style={{ animationDelay: "1s" }}
+        >
+          🎁
+        </div>
       </div>
     </div>
   );

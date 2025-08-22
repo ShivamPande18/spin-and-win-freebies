@@ -25,18 +25,18 @@ export const EmailCapture = ({ onSubmit }: EmailCaptureProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email.trim()) {
       toast.error("Please enter your email address!");
       return;
     }
-    
+
     if (!isValid) {
       toast.error("Please enter a valid email address!");
       return;
     }
 
-    toast.success("Email captured! Let's spin the wheel! 🎉");
+    // toast.success("Email captured! Let's spin the wheel! 🎉");
     onSubmit(email);
   };
 
@@ -47,11 +47,11 @@ export const EmailCapture = ({ onSubmit }: EmailCaptureProps) => {
           <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
             <Sparkles className="w-10 h-10 text-primary-foreground" />
           </div>
-          
+
           <h2 className="text-3xl font-bold text-foreground mb-4">
             Get Your Freebies!
           </h2>
-          
+
           <p className="text-muted-foreground text-lg">
             Enter your email first to unlock amazing prizes
           </p>
@@ -66,11 +66,11 @@ export const EmailCapture = ({ onSubmit }: EmailCaptureProps) => {
               value={email}
               onChange={handleEmailChange}
               className={`pl-12 h-14 text-lg rounded-2xl border-2 transition-all duration-300 ${
-                email && isValid 
-                  ? 'border-primary shadow-glow' 
-                  : email && !isValid 
-                  ? 'border-destructive' 
-                  : 'border-border focus:border-primary'
+                email && isValid
+                  ? "border-primary shadow-glow"
+                  : email && !isValid
+                  ? "border-destructive"
+                  : "border-border focus:border-primary"
               }`}
             />
           </div>
