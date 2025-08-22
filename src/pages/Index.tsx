@@ -2,10 +2,13 @@ import { useState } from "react";
 import { SpinWheel } from "@/components/SpinWheel";
 import { EmailCapture } from "@/components/EmailCapture";
 import { PrizeDisplay } from "@/components/PrizeDisplay";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 
 const Index = () => {
   const [email, setEmail] = useState("");
-  const [gameState, setGameState] = useState<"email" | "spinning" | "won">("email");
+  const [gameState, setGameState] = useState<"email" | "spinning" | "won">(
+    "email"
+  );
   const [wonPrize, setWonPrize] = useState<string>("");
   const [isSpinning, setIsSpinning] = useState(false);
 
@@ -19,14 +22,13 @@ const Index = () => {
     "Bonus Content Pack",
     "Early Access",
     "VIP Membership",
-    "$50 Gift Card"
+    "$50 Gift Card",
   ];
 
-  const handleEmailSubmit = (submittedEmail: string) => {
-    setEmail(submittedEmail);
+  const handleEmailSubmit = () => {
     setGameState("spinning");
     setIsSpinning(true);
-    
+
     // Simulate wheel stopping after 4 seconds
     setTimeout(() => {
       const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
@@ -51,26 +53,18 @@ const Index = () => {
             Spin & Win Amazing Prizes!
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Enter your email and spin the wheel for a chance to win exclusive prizes and discounts!
+            Enter your email and spin the wheel for a chance to win exclusive
+            prizes and discounts!
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
-          {/* Left Side - Spin Wheel */}
-          <div className="flex justify-center">
-            <SpinWheel 
-              prizes={prizes} 
-              isSpinning={isSpinning}
-              wonPrize={wonPrize}
-            />
-          </div>
-
-          {/* Right Side - Dynamic Content */}
+          {/* Left Side - Content */}
           <div className="flex justify-center">
             {gameState === "email" && (
               <EmailCapture onSubmit={handleEmailSubmit} />
             )}
-            
+
             {gameState === "spinning" && (
               <div className="text-center animate-pulse-glow">
                 <div className="bg-card rounded-3xl p-12 shadow-glow border border-border/50">
@@ -78,20 +72,27 @@ const Index = () => {
                   <h3 className="text-2xl font-bold text-foreground mb-4">
                     Spinning the wheel...
                   </h3>
-                  <p className="text-muted-foreground">
-                    Good luck! 🍀
-                  </p>
+                  <p className="text-muted-foreground">Good luck! 🍀</p>
                 </div>
               </div>
             )}
-            
+
             {gameState === "won" && (
-              <PrizeDisplay 
-                prize={wonPrize} 
+              <PrizeDisplay
+                prize={wonPrize}
                 email={email}
-                onRetry={handleRetry} 
+                onRetry={handleRetry}
               />
             )}
+          </div>
+
+          {/* Right Side - wheel */}
+          <div className="flex justify-center">
+            <SpinWheel
+              prizes={prizes}
+              isSpinning={isSpinning}
+              wonPrize={wonPrize}
+            />
           </div>
         </div>
       </div>

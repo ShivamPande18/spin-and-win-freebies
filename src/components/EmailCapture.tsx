@@ -3,42 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import GoogleAuthButton from "./GoogleAuthButton";
+import GoogleIcon from "@/icons/GoogleIcon";
+import { FcGoogle } from "react-icons/fc";
 
 interface EmailCaptureProps {
-  onSubmit: (email: string) => void;
+  onSubmit: () => void;
 }
 
 export const EmailCapture = ({ onSubmit }: EmailCaptureProps) => {
-  const [email, setEmail] = useState("");
-  const [isValid, setIsValid] = useState(false);
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-    setIsValid(validateEmail(value));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!email.trim()) {
-      toast.error("Please enter your email address!");
-      return;
-    }
-
-    if (!isValid) {
-      toast.error("Please enter a valid email address!");
-      return;
-    }
-
-    // toast.success("Email captured! Let's spin the wheel! 🎉");
-    onSubmit(email);
-  };
+  const [googleDone, setGoogleDone] = useState(false);
 
   return (
     <div className="animate-slide-up">
@@ -53,37 +27,29 @@ export const EmailCapture = ({ onSubmit }: EmailCaptureProps) => {
           </h2>
 
           <p className="text-muted-foreground text-lg">
-            Enter your email first to unlock amazing prizes
+            Sign in with google first to unlock amazing prizes
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative">
-            <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={handleEmailChange}
-              className={`pl-12 h-14 text-lg rounded-2xl border-2 transition-all duration-300 ${
-                email && isValid
-                  ? "border-primary shadow-glow"
-                  : email && !isValid
-                  ? "border-destructive"
-                  : "border-border focus:border-primary"
-              }`}
-            />
-          </div>
+        <div className="space-y-6">
+          {!googleDone ? (
+            <div className="relative">
+              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow">
+                <FcGoogle className="w-5 h-5" />
+              </div>
+              <GoogleAuthButton onDone={() => setGoogleDone(true)} />
+            </div>
+          ) : null}
 
           <Button
-            type="submit"
-            disabled={!email || !isValid}
+            disabled={!googleDone}
             className="w-full h-14 text-lg font-bold rounded-2xl bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            onClick={onSubmit}
           >
             <Sparkles className="w-5 h-5 mr-2" />
             Spin the Wheel!
           </Button>
-        </form>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-xs text-muted-foreground">
