@@ -16,7 +16,7 @@ export const PrizeDisplay = ({
   onRetry,
 }: PrizeDisplayProps) => {
   const handleDownload = () => {
-    toast.success("Prize download initiated! Check your email for details.");
+    toast.success("Prize downloaded!!");
     onDownload();
   };
 
