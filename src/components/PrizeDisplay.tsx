@@ -5,13 +5,19 @@ import { toast } from "sonner";
 interface PrizeDisplayProps {
   prize: string;
   email: string;
+  onDownload: () => void;
   onRetry: () => void;
 }
 
-export const PrizeDisplay = ({ prize, email, onRetry }: PrizeDisplayProps) => {
+export const PrizeDisplay = ({
+  prize,
+  email,
+  onDownload,
+  onRetry,
+}: PrizeDisplayProps) => {
   const handleDownload = () => {
     toast.success("Prize download initiated! Check your email for details.");
-    // In a real app, this would trigger actual download or email sending
+    onDownload();
   };
 
   const handleRetry = () => {

@@ -10,20 +10,34 @@ const Index = () => {
     "email"
   );
   const [wonPrize, setWonPrize] = useState<string>("");
+  const [wonIndex, setWonIndex] = useState<number>(0);
   const [isSpinning, setIsSpinning] = useState(false);
 
   const prizes = [
-    "10% Discount Code",
-    "Free Shipping",
-    "Premium Template",
-    "30-Day Free Trial",
-    "Exclusive Ebook",
-    "Free Consultation",
-    "Bonus Content Pack",
-    "Early Access",
-    "VIP Membership",
-    "$50 Gift Card",
+    "LinkedIn Mastery Guide",
+    "Paid Internships Goldlist",
+    "Resume Booster Pack",
+    "Top Government Internships",
   ];
+
+  const pdfs = [
+    "/prizes/LinkedInMasteryGuide.pdf",
+    "/prizes/PaidInternshipsGoldlist.pdf",
+    "/prizes/ResumeBoosterPack.pdf",
+    "/prizes/TopGovernmentInternships.pdf",
+  ];
+
+  function downloadPdfByIndex() {
+    triggerDownload(pdfs[wonIndex]);
+  }
+
+  // 🔽 Common download helper
+  function triggerDownload(pdfUrl: string) {
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = pdfUrl.split("/").pop() || "prize.pdf";
+    link.click();
+  }
 
   const handleEmailSubmit = () => {
     setGameState("spinning");
@@ -31,8 +45,10 @@ const Index = () => {
 
     // Simulate wheel stopping after 4 seconds
     setTimeout(() => {
-      const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+      const randomIndex = Math.floor(Math.random() * prizes.length);
+      const randomPrize = prizes[randomIndex];
       setWonPrize(randomPrize);
+      setWonIndex(randomIndex);
       setIsSpinning(false);
       setGameState("won");
     }, 4000);
@@ -79,6 +95,7 @@ const Index = () => {
 
             {gameState === "won" && (
               <PrizeDisplay
+                onDownload={downloadPdfByIndex}
                 prize={wonPrize}
                 email={email}
                 onRetry={handleRetry}

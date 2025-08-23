@@ -43,7 +43,8 @@ export const SpinWheel = ({ prizes, isSpinning, wonPrize }: SpinWheelProps) => {
   return (
     <div className="relative">
       {/* Wheel Container */}
-      <div className="relative w-96 h-96 lg:w-96 lg:h-96">
+      {/* <div className="relative w-96 h-96 lg:w-96 lg:h-96"> */}
+      <div style={{ width: "30rem", height: "30rem" }} className="relative">
         {/* Pointer */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 z-20">
           <div className="w-0 h-0 border-l-4 border-r-4 border-b-6 border-l-transparent border-r-transparent border-b-foreground"></div>
@@ -86,7 +87,7 @@ export const SpinWheel = ({ prizes, isSpinning, wonPrize }: SpinWheelProps) => {
                   }}
                 >
                   <div
-                    className="absolute text-white font-bold text-xs lg:text-sm text-center px-2"
+                    className="absolute text-white font-bold  text-center px-2"
                     style={{
                       top: "20%",
                       left: "50%",
